@@ -13,7 +13,7 @@ import (
 func getHostId() (string, error) {
 	key, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\Microsoft\Cryptography`, registry.QUERY_VALUE)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	defer key.Close()

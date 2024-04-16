@@ -14,7 +14,7 @@ import (
 func getHostId() (string, error) {
 	machineId, err := exec.Command("ioreg", "-rd1", "-c", "IOPlatformExpertDevice").Output()
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	return strings.Trim(string(machineId), "\n"), nil
