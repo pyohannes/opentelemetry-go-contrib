@@ -15,7 +15,7 @@ import (
 )
 
 type config struct {
-	optInIPAddresses bool
+	optInIPAddresses  bool
 	optInMACAddresses bool
 }
 
@@ -39,21 +39,21 @@ func (fn optionFunc) apply(c *config) {
 	fn(c)
 }
 
-// WithIPAddresses adds the optional attribute `host.ip`
+// WithIPAddresses adds the optional attribute `host.ip`.
 func WithIPAddresses() Option {
 	return optionFunc(func(c *config) {
 		c.optInIPAddresses = true
 	})
 }
 
-// WithMACAddresses adds the optional attribute `host.ip`
+// WithMACAddresses adds the optional attribute `host.ip`.
 func WithMACAddresses() Option {
 	return optionFunc(func(c *config) {
 		c.optInMACAddresses = true
 	})
 }
 
-type resourceDetector struct{
+type resourceDetector struct {
 	config *config
 }
 
@@ -81,14 +81,14 @@ func (detector *resourceDetector) Detect(ctx context.Context) (*resource.Resourc
 
 	if detector.config.optInIPAddresses {
 		ipAddresses := getIPAddresses()
-		if (len(ipAddresses) > 0) {
+		if len(ipAddresses) > 0 {
 			attributes = append(attributes, semconv.HostIP(ipAddresses...))
 		}
 	}
 
 	if detector.config.optInMACAddresses {
 		macAddresses := getMACAddresses()
-		if (len(macAddresses) > 0) {
+		if len(macAddresses) > 0 {
 			attributes = append(attributes, semconv.HostMac(macAddresses...))
 		}
 	}
@@ -100,9 +100,9 @@ func getIPAddresses() []string {
 	var ipAddresses []string
 
 	ifaces, err := net.Interfaces()
-	if (err == nil) {
+	if err == nil {
 		for _, iface := range ifaces {
-			if iface.Flags & net.FlagLoopback != 0 {
+			if iface.Flags&net.FlagLoopback != 0 {
 				continue
 			}
 
@@ -123,9 +123,9 @@ func getMACAddresses() []string {
 	var macAddresses []string
 
 	ifaces, err := net.Interfaces()
-	if (err == nil) {
+	if err == nil {
 		for _, iface := range ifaces {
-			if iface.Flags & net.FlagLoopback != 0 {
+			if iface.Flags&net.FlagLoopback != 0 {
 				continue
 			}
 
