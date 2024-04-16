@@ -16,13 +16,14 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.24.0"
 )
 
-type resourceDetector struct {
-}
+type resourceDetector struct{}
 
+// NewResourceDetector returns a resource detector that will detect host resources.
 func NewResourceDetector() resource.Detector {
 	return &resourceDetector{}
 }
 
+// Detect detects associated resources when running on a physical host.
 func (detector *resourceDetector) Detect(ctx context.Context) (*resource.Resource, error) {
 	machineId, err := os.ReadFile("/etc/machine-id")
 	if err != nil {
