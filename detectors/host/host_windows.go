@@ -8,7 +8,7 @@ package host // import "go.opentelemetry.io/contrib/detectors/host"
 
 import (
 	"context"
-	"x/sys/windows/registry"
+	"golang.org/x/sys/windows/registry"
 
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/sdk/resource"

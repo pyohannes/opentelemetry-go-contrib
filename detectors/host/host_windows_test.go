@@ -9,7 +9,7 @@ package host
 import (
 	"context"
 	"testing"
-	"x/sys/windows/registry"
+	"golang.org/x/sys/windows/registry"
 
 	"github.com/stretchr/testify/assert"
 
