@@ -26,7 +26,7 @@ func Test_DetectLinux(t *testing.T) {
 
 	assert.True(t, err == nil)
 
-	machineId, err := exec.Command("ioreg -rd1 -c IOPlatformExpertDevice").Output()
+	machineId, err := exec.Command("ioreg", "-rd1", "-c", "IOPlatformExpertDevice").Output()
 
 	assert.True(t, err == nil)
 

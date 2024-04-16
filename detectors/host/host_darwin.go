@@ -25,7 +25,7 @@ func NewResourceDetector() resource.Detector {
 
 // Detect detects associated resources when running on a physical host.
 func (detector *resourceDetector) Detect(ctx context.Context) (*resource.Resource, error) {
-	machineId, err := exec.Command("ioreg -rd1 -c IOPlatformExpertDevice").Output()
+	machineId, err := exec.Command("ioreg", "-rd1", "-c", "IOPlatformExpertDevice").Output()
 	if err != nil {
 		return nil, err
 	}
