@@ -1,6 +1,7 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
+//go:build linux
 // +build linux
 
 package host
@@ -29,7 +30,7 @@ func Test_DetectLinux(t *testing.T) {
 
 	expectedResource := resource.NewWithAttributes(semconv.SchemaURL, []attribute.KeyValue{
 		semconv.HostID(strings.Trim(string(machineId), "\n")),
-	}...);
+	}...)
 
 	assert.Equal(t, expectedResource, hostResource)
 }
