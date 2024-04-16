@@ -23,14 +23,20 @@ func Test_DetectLinux(t *testing.T) {
 
 	assert.True(t, err == nil)
 
-	machineId, _ := getHostId()
 	hostName, _ := os.Hostname()
 
-	expectedResource := resource.NewWithAttributes(semconv.SchemaURL, []attribute.KeyValue{
+	attributes := []attribute.KeyValue{
 		semconv.HostArchKey.String(runtime.GOARCH),
 		semconv.HostName(hostName),
-		semconv.HostID(machineId),
-	}...)
+	}
+
+	// The host id is added conditionally, as it might not be available under all circumstances (for example in Windows containers)
+	machineId, err := getHostId()
+	if err == nil {
+		attributes = append(attributes, semconv.HostID(machineId))
+	}
+
+	expectedResource := resource.NewWithAttributes(semconv.SchemaURL, attributes...)
 
 	assert.Equal(t, expectedResource, hostResource)
 }
@@ -45,16 +51,23 @@ func Test_DetectLinux_WithOptIns(t *testing.T) {
 
 	assert.True(t, err == nil)
 
-	machineId, _ := getHostId()
 	hostName, _ := os.Hostname()
 
-	expectedResource := resource.NewWithAttributes(semconv.SchemaURL, []attribute.KeyValue{
+	attributes := []attribute.KeyValue{
 		semconv.HostArchKey.String(runtime.GOARCH),
 		semconv.HostName(hostName),
-		semconv.HostID(machineId),
-		semconv.HostIP(getIPAddresses()...),
-		semconv.HostMac(getMACAddresses()...),
-	}...)
+	}
+
+	// The host id is added conditionally, as it might not be available under all circumstances (for example in Windows containers)
+	machineId, err := getHostId()
+	if err == nil {
+		attributes = append(attributes, semconv.HostID(machineId))
+	}
+
+	attributes = append(attributes, semconv.HostIP(getIPAddresses()...))
+	attributes = append(attributes, semconv.HostMac(getMACAddresses()...))
+
+	expectedResource := resource.NewWithAttributes(semconv.SchemaURL, attributes...)
 
 	assert.Equal(t, expectedResource, hostResource)
 }
