@@ -8,7 +8,7 @@ package host // import "go.opentelemetry.io/contrib/detectors/host"
 
 import (
 	"context"
-	"exec"
+	"os/exec"
 	"strings"
 
 	"go.opentelemetry.io/otel/attribute"

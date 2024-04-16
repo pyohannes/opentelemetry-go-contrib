@@ -8,7 +8,7 @@ package host
 
 import (
 	"context"
-	"exec"
+	"os/exec"
 	"strings"
 	"testing"
 
