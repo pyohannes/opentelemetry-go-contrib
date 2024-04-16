@@ -18,5 +18,7 @@ func getHostId() (string, error) {
 
 	defer key.Close()
 
-	return key.GetStringValue("MachineGuid")
+	machineId, _, err := key.GetStringValue("MachineGuid")
+
+	return machineId, err
 }
