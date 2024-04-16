@@ -17,5 +17,5 @@ func getHostId() (string, error) {
 		return nil, err
 	}
 
-	return strings.Trim(string(machineId), nil
+	return strings.Trim(string(machineId), "\n"), nil
 }
