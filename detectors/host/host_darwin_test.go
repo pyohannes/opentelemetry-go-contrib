@@ -8,7 +8,7 @@ package host
 
 import (
 	"context"
-	"os"
+	"exec"
 	"strings"
 	"testing"
 
@@ -26,7 +26,9 @@ func Test_DetectLinux(t *testing.T) {
 
 	assert.True(t, err == nil)
 
-	machineId, _ := os.ReadFile("/etc/machine-id")
+	machineId, err := exec.Command("ioreg -rd1 -c IOPlatformExpertDevice").Output()
+
+	assert.True(t, err == nil)
 
 	expectedResource := resource.NewWithAttributes(semconv.SchemaURL, []attribute.KeyValue{
 		semconv.HostID(strings.Trim(string(machineId), "\n")),
